@@ -1,9 +1,11 @@
-FROM 
+FROM maven:3.6.1-jdk-8-alpine
 
 WORKDIR /app 
 
-COPY 
+COPY . .
 
-RUN 
+RUN mvn package -DskipTest && \
+    mv target/worker-jar-with-dependencies.jar /run/worker.jar && \
+    rm -rf *
 
-CMD 
+CMD java -jar /run/worker.jar
